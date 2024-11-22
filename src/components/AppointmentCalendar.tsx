@@ -32,6 +32,62 @@ const mockAppointments: Appointment[] = [
     time: new Date(2024, 2, 21, 14, 0),
     duration: 30,
   },
+  {
+    id: "4",
+    patientName: "Sarah Johnson",
+    doctorName: "Dr. Brown",
+    specialty: "dermatology",
+    time: new Date(2024, 2, 22, 11, 30),
+    duration: 45,
+  },
+  {
+    id: "5",
+    patientName: "Michael Chen",
+    doctorName: "Dr. Smith",
+    specialty: "general",
+    time: new Date(2024, 2, 22, 15, 0),
+    duration: 30,
+  },
+  {
+    id: "6",
+    patientName: "Emily White",
+    doctorName: "Dr. Johnson",
+    specialty: "cardiology",
+    time: new Date(2024, 2, 23, 9, 30),
+    duration: 60,
+  },
+  {
+    id: "7",
+    patientName: "David Lee",
+    doctorName: "Dr. Davis",
+    specialty: "pediatrics",
+    time: new Date(2024, 2, 23, 13, 0),
+    duration: 30,
+  },
+  {
+    id: "8",
+    patientName: "Lisa Anderson",
+    doctorName: "Dr. Brown",
+    specialty: "dermatology",
+    time: new Date(2024, 2, 24, 10, 0),
+    duration: 45,
+  },
+  {
+    id: "9",
+    patientName: "Tom Wilson",
+    doctorName: "Dr. Smith",
+    specialty: "general",
+    time: new Date(2024, 2, 24, 14, 30),
+    duration: 30,
+  },
+  {
+    id: "10",
+    patientName: "Maria Garcia",
+    doctorName: "Dr. Johnson",
+    specialty: "cardiology",
+    time: new Date(2024, 2, 25, 11, 0),
+    duration: 45,
+  }
 ];
 
 interface AppointmentCalendarProps {
