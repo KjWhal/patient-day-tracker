@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { format, addDays, startOfWeek, isSameDay } from "date-fns";
 import AppointmentCard, { Appointment } from "./AppointmentCard";
+import { cn } from "@/lib/utils";
 
 // Mock data - in a real app this would come from an API
 const mockAppointments: Appointment[] = [
@@ -39,16 +40,23 @@ interface AppointmentCalendarProps {
 
 const AppointmentCalendar = ({ selectedSpecialty }: AppointmentCalendarProps) => {
   const [currentDate, setCurrentDate] = useState(new Date());
+  const [selectedDay, setSelectedDay] = useState<Date | null>(null);
   const startDate = startOfWeek(currentDate);
 
   const weekDays = Array.from({ length: 7 }, (_, i) => addDays(startDate, i));
 
   const filteredAppointments = mockAppointments.filter(
-    (apt) => selectedSpecialty === "all" || apt.specialty === selectedSpecialty
+    (apt) =>
+      (selectedSpecialty === "all" || apt.specialty === selectedSpecialty) &&
+      (!selectedDay || isSameDay(apt.time, selectedDay))
   );
 
   const getAppointmentsForDay = (date: Date) =>
     filteredAppointments.filter((apt) => isSameDay(apt.time, date));
+
+  const handleDayClick = (date: Date) => {
+    setSelectedDay(isSameDay(date, selectedDay as Date) ? null : date);
+  };
 
   return (
     <Card className="p-6">
@@ -77,10 +85,19 @@ const AppointmentCalendar = ({ selectedSpecialty }: AppointmentCalendarProps) =>
       <div className="grid grid-cols-7 gap-4">
         {weekDays.map((day) => (
           <div key={day.toISOString()}>
-            <div className="text-center mb-2">
-              <div className="font-medium">{format(day, "EEE")}</div>
-              <div className="text-sm text-gray-500">{format(day, "d")}</div>
-            </div>
+            <Button
+              variant="ghost"
+              className={cn(
+                "w-full mb-2 hover:bg-primary/10",
+                selectedDay && isSameDay(day, selectedDay) && "bg-primary/20"
+              )}
+              onClick={() => handleDayClick(day)}
+            >
+              <div className="text-center">
+                <div className="font-medium">{format(day, "EEE")}</div>
+                <div className="text-sm text-gray-500">{format(day, "d")}</div>
+              </div>
+            </Button>
             <div className="space-y-2">
               {getAppointmentsForDay(day).map((appointment) => (
                 <AppointmentCard
